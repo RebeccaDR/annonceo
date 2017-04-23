@@ -18,7 +18,7 @@ function viewSelectCategorie ($categories) {
 
 function viewListeCategories ($categories) { // fonction qui affiche la liste des catégories
   ?>
-  <table class="table table-striped">
+  <table class="table table-striped table-bordered">
     <tr> <!-- ligne des titres -->
       <th>id categorie</th>
       <th>titre</th>

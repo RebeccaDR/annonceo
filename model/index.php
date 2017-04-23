@@ -11,3 +11,4 @@ $pdo = new PDO('mysql:host=localhost;dbname=annonceo', 'root', '', $options);
 // We require all the model functions for later
 require('./model/membres.php');
 require('./model/categories.php');
+require('./model/annonces.php');

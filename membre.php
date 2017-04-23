@@ -6,9 +6,9 @@
 
   include './templates/top.php';
 
-  echo '<pre>';
-  print_r($_REQUEST);
-  echo '</pre>';
+  // echo '<pre>';
+  // print_r($_REQUEST);
+  // echo '</pre>';
   // if action parameter was passed, the page is a form submission
   if (isset($_REQUEST['action'])) {
     $errors = checkMembreForm($_REQUEST, $_REQUEST['action']);

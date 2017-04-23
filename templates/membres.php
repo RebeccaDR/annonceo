@@ -3,7 +3,7 @@ require_once('./templates/categories.php');
 
 function viewListeMembres ($membres) {
   ?>
-  <table class="table table-striped">
+  <table class="table table-striped table-bordered">
     <tr>
       <th>id</th>
       <th>pseudo</th>

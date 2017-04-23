@@ -16,6 +16,7 @@
 			<div class="container">
 				<a class="navbar-brand" href="index.php">Annonceo</a>
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="annonces.php">Annonces</a></li>
 					<li><a href="membres.php">Membres</a></li>
 					<li><a href="categories.php">Catégories</a></li>
 				</ul>

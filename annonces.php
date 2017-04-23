@@ -5,9 +5,13 @@
 
   include './templates/top.php';
 
+  $annonces = getAnnonces();
 
+  // echo "<pre>";
+  // print_r($annonces);
+  // echo "</pre>";
 
-
+  viewListeAnnonces($annonces);
 
 
 
