@@ -2,17 +2,18 @@
 
 function viewSelectCategorie ($categories) {
   ?>
-  <select name="id_categorie">
+  <select name="id_categorie" class="form-control">
     <?php
 			foreach ($categories as $categorie):
 		?>
     <option value="<?= $categorie['id_categorie']?>" >
       <?= $categorie['titre']?>
+      (<?= $categorie['motscles']?>...)
     </option>
     <?php
   endforeach;
     ?>
-  </table>
+  </select>
   <?php
 }
 

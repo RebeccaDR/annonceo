@@ -1,5 +1,4 @@
 <?php
-require_once('./templates/categories.php');
 
 function viewListeMembres ($membres) {
   ?>

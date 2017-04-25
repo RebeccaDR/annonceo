@@ -27,25 +27,146 @@
   function createAnnonce ($form) {
     global $pdo;
 
-    $query = 'INSERT INTO annonce VALUES (null, :titre, :description_courte, :description_longue, :prix, :pays, :ville, :adresse, :cp, :membre_id, )';
+    $query = 'INSERT INTO annonce VALUES (null, :titre, :description_courte, :description_longue, :prix, :pays, :ville, :adresse, :cp, :membre_id, :photo_id, :categorie_id, NOW())';
+
+      $stmt = $pdo->prepare($query);
+      $stmt->bindParam(':titre', $form['titre'], PDO::PARAM_STR);
+      $stmt->bindParam(':description_courte', $form['description_courte'], PDO::PARAM_STR);
+      $stmt->bindParam(':description_longue', $form['description_longue'], PDO::PARAM_STR);
+      $stmt->bindParam(':prix', $form['prix'], PDO::PARAM_STR);
+      $stmt->bindParam(':pays', $form['pays'], PDO::PARAM_STR);
+      $stmt->bindParam(':ville', $form['ville'], PDO::PARAM_STR);
+      $stmt->bindParam(':adresse', $form['adresse'], PDO::PARAM_STR);
+      $stmt->bindParam(':cp', $form['cp'], PDO::PARAM_INT);
+      $stmt->bindParam(':membre_id', $form['membre_id'], PDO::PARAM_INT);
+      $stmt->bindParam(':photo_id', $form['photo_id'], PDO::PARAM_INT);
+      $stmt->bindParam(':categorie_id', $form['categorie_id'], PDO::PARAM_INT);
+
+      $stmt->execute();
+  }
+
+  function updateAnnonce ($idAnnonce, $form) {
+    global $pdo;
+
+    $query = 'UPDATE annonce SET
+      titre = :titre,
+      description_courte = :description_courte,
+      description_longue = :description_longue,
+      prix = :prix,
+      pays = :pays,
+      ville = :ville,
+      adresse = :adresse,
+      cp = :cp,
+      categorie_id = :categorie_id WHERE id_annonce = '. $idAnnonce;
+
+      $stmt = $pdo->prepare($query);
+      $stmt->bindParam(':titre', $form['titre'], PDO::PARAM_STR);
+      $stmt->bindParam(':description_courte', $form['description_courte'], PDO::PARAM_STR);
+      $stmt->bindParam(':description_longue', $form['description_longue'], PDO::PARAM_STR);
+      $stmt->bindParam(':prix', $form['prix'], PDO::PARAM_STR);
+      $stmt->bindParam(':pays', $form['pays'], PDO::PARAM_STR);
+      $stmt->bindParam(':ville', $form['ville'], PDO::PARAM_STR);
+      $stmt->bindParam(':adresse', $form['adresse'], PDO::PARAM_STR);
+      $stmt->bindParam(':cp', $form['cp'], PDO::PARAM_INT);
+      $stmt->bindParam(':categorie_id', $form['categorie_id'], PDO::PARAM_INT);
+
+      $stmt->execute();
+  }
+
+  function checkAnnonceForm ($form) {
+    $errors = [];
+    $photoErrors = checkPhotos();
+
+    return array_merge($errors, $photoErrors);
   }
 
   function createPhoto ($form) {
     global $pdo;
 
+    $uploadedPhotoNames = array_merge($form, processPhotoUpload());
+
     $query = 'INSERT INTO photo VALUES (null, :photo1, :photo2, :photo3, :photo4, :photo5)';
 
     $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':photo1', $form['photo1'], PDO::PARAM_STR);
-    $stmt->bindParam(':photo2', $form['photo2'], PDO::PARAM_STR);
-    $stmt->bindParam(':photo3', $form['photo3'], PDO::PARAM_STR);
-    $stmt->bindParam(':photo4', $form['photo4'], PDO::PARAM_STR);
-    $stmt->bindParam(':photo5', $form['photo5'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo1', $uploadedPhotoNames['photo1'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo2', $uploadedPhotoNames['photo2'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo3', $uploadedPhotoNames['photo3'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo4', $uploadedPhotoNames['photo4'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo5', $uploadedPhotoNames['photo5'], PDO::PARAM_STR);
 
     $stmt->execute();
+
+    return $pdo->lastInsertId();
   }
 
+  function updatePhoto ($idPhoto, $form) {
+    global $pdo;
+    $uploadedPhotoNames = array_merge($form, processPhotoUpload());
 
+    $query = 'UPDATE photo SET photo1 = :photo1, photo2 = :photo2, photo3 = :photo3, photo4 = :photo4, photo5 = :photo5 WHERE id_photo = ' . $idPhoto;
 
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':photo1', $uploadedPhotoNames['photo1'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo2', $uploadedPhotoNames['photo2'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo3', $uploadedPhotoNames['photo3'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo4', $uploadedPhotoNames['photo4'], PDO::PARAM_STR);
+    $stmt->bindParam(':photo5', $uploadedPhotoNames['photo5'], PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    return $pdo->lastInsertId();
+  }
+
+  function getPhoto ($idPhoto) {
+    global $pdo;
+
+    $query = 'SELECT * FROM photo WHERE id_photo = ' . $idPhoto;
+    $stmt = $pdo->query($query);
+
+    return $stmt->fetch();
+  }
+
+  function processPhotoUpload () {
+    $savedAs = [];
+    $target_dir = "uploads/";
+
+    foreach ($_FILES as $key => $upload) {
+      if (! isset($upload['tmp_name']) || $upload['tmp_name'] == '') {
+        continue;
+      }
+
+      $uniqueFileName = time() . '-' . basename($upload["name"]);
+      $target_file = $target_dir . $uniqueFileName;
+
+      $savedAs[$key] = $uniqueFileName;
+      move_uploaded_file($upload["tmp_name"], $target_file);
+    }
+
+    return $savedAs;
+  }
+
+  function checkPhotos () {
+    $errors = [];
+
+    foreach ($_FILES as $key => $upload) {
+      if (! isset($upload['tmp_name']) || $upload['tmp_name'] == '') {
+        continue;
+      }
+
+      $imageFileType = pathinfo($upload['name'], PATHINFO_EXTENSION);
+
+      // Check file size
+      if ($upload["size"] > 5000000) {
+        $errors[$key] = "La taille du fichier ne doit pas excéder 5Mo.";
+      }
+
+      // Allow certain file formats
+      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        $errors[$key] = "Seuls les fichiers JPG, JPEG, PNG & GIF sont autorisés.";
+      }
+    }
+
+    return $errors;
+  }
 
  ?>

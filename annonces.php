@@ -13,7 +13,9 @@
 
   viewListeAnnonces($annonces);
 
-
+  ?>
+  <a class="btn btn-default" href="./annonce.php">Créer une nouvelle annonce</a>
+  <?php
 
   include './templates/bottom.php';
 
