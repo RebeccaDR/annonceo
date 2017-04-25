@@ -1,5 +1,5 @@
-.form-error-label {
-  color: #c9302c;
+.form-error-label, a.red-text {
+  color: #c9302c !important;
 }
 
 .photo-form {

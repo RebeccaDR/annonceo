@@ -15,15 +15,15 @@
 
     if ($_REQUEST['action'] == 'update' && count($errors) == 0) {
       updateMembre($_REQUEST['id_membre'], $_REQUEST);
-      // header('Location: membres.php?update_success=true');
+      header('Location: membres.php?update_success=true');
     }
     if ($_REQUEST['action'] == 'create' && count($errors) == 0) {
       createMembre($_REQUEST);
-      // header('Location: membres.php?create_success=true');
+      header('Location: membres.php?create_success=true');
     }
     if ($_REQUEST['action'] == 'delete') {
       deleteMembre($_REQUEST['id_membre']);
-      // header('Location: membres.php?delete_success=true');
+      header('Location: membres.php?delete_success=true');
     }
 
     $membre = $_REQUEST;
@@ -40,5 +40,17 @@
 
   // Print raw return of getMembres function
   viewMembreForm($membre, $errors);
+
+
+  if (isset($_REQUEST['id_membre']) && $_REQUEST['id_membre'] != '') {
+  ?>
+    <a
+      class="btn btn-danger"
+      onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer le membre ?');return false;"
+      href="membre.php?action=delete&amp;id_membre=<?= $membre['id_membre']?>">
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer
+    </a>
+  <?php
+  }
 
   include './templates/bottom.php';

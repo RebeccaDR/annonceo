@@ -12,3 +12,4 @@ $pdo = new PDO('mysql:host=localhost;dbname=annonceo', 'root', '', $options);
 require('./model/membres.php');
 require('./model/categories.php');
 require('./model/annonces.php');
+require('./model/security.php');

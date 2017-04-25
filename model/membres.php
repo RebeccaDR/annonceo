@@ -18,13 +18,26 @@ function getMembre ($idMembre) {
   return $stmt->fetch();
 }
 
+function getMembreByLogin ($pseudo, $mdp) {
+  global $pdo;
+
+  $query = 'SELECT * FROM membre WHERE pseudo = :pseudo AND mdp = :mdp';
+
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+  $stmt->bindValue(':mdp', sha1($mdp), PDO::PARAM_STR);
+  $stmt->execute();
+
+  return $stmt->fetch();
+}
+
 function createMembre ($form) {
   global $pdo;
 
   $query = 'INSERT INTO membre VALUES (null, :pseudo, :mdp, :nom, :prenom, :email, :telephone, :civilite, :statut, NOW())';
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(':pseudo',               $form['pseudo'], PDO::PARAM_STR);
-  $stmt->bindParam(':mdp',                  $form['mdp'], PDO::PARAM_STR);
+  $stmt->bindParam(':mdp',                  sha1($form['mdp']), PDO::PARAM_STR);
   $stmt->bindParam(':nom',                  $form['nom'], PDO::PARAM_STR);
   $stmt->bindParam(':prenom',               $form['prenom'], PDO::PARAM_STR);
   $stmt->bindParam(':email',                $form['email'], PDO::PARAM_STR);
@@ -45,7 +58,7 @@ function updateMembre ($idMembre, $form) {
   $query = 'UPDATE membre SET pseudo = :pseudo, mdp = :mdp, nom = :nom, prenom = :prenom, email = :email, telephone = :telephone, civilite = :civilite, statut = :statut WHERE id_membre = ' . $idMembre;
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(':pseudo',               $form['pseudo'], PDO::PARAM_STR);
-  $stmt->bindParam(':mdp',                  $form['mdp'], PDO::PARAM_STR);
+  $stmt->bindParam(':mdp',                  sha1($form['mdp']), PDO::PARAM_STR);
   $stmt->bindParam(':nom',                  $form['nom'], PDO::PARAM_STR);
   $stmt->bindParam(':prenom',               $form['prenom'], PDO::PARAM_STR);
   $stmt->bindParam(':email',                $form['email'], PDO::PARAM_STR);
