@@ -20,6 +20,9 @@ function viewLoginForm () {
               <label class="control-label">Mot de passe</label>
               <input class="form-control" type="password" name="mdp" placeholder="Votre mot de passe" >
             </div>
+            <div class="form-group">
+              <p><span class="">Vous n'avez pas de compte ? <a href="">Inscrivez-vous ici.</a></span></p>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

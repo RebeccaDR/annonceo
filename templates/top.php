@@ -20,12 +20,15 @@
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<a class="navbar-brand" href="index.php">Annonceo</a>
+				<ul class="nav navbar-nav navbar-left">
+					<li><a href="">Consulter les annonces</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php
 					if (isUserAdmin()) :
 					?>
 					<li class="dropdown">
-          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+          	<a href="#" class="dropdown-toggle blue-text" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
           	<ul class="dropdown-menu">
 							<li><a href="annonces.php">Annonces</a></li>
 							<li><a href="membres.php">Membres</a></li>
@@ -47,7 +50,7 @@
 							<li><a href="#">Mes annonces</a></li>
 							<li><a href="#">Mes avis</a></li>
 	            <li role="separator" class="divider"></li>
-							<li><a class="red-text" href="#">Déconnexion</a></li>
+							<li><a class="red-text" href="./logout.php">Déconnexion</a></li>
           	</ul>
         	</li>
 				<?php
@@ -63,4 +66,7 @@
 		<?= viewLoginForm(); ?>
 		<div class="container">
 
-			<?php print_r($_SESSION); ?>
+			<?php
+			// print_r($_SESSION);
+
+			?>
