@@ -1,7 +1,9 @@
 <?php
 	require_once('./templates/security.php');
 	require_once('./model/security.php');
-	session_start();
+	if (!isset($_SESSION)) {
+		session_start();
+	}
  ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -57,13 +59,24 @@
 				else :
  				?>
 					<li><a href="#" data-toggle="modal" data-target="#loginModal">Connexion</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#signupModal">Inscription</a></li>
 				<?php
 				endif;
 				 ?>
 				</ul>
 			</div>
 		</nav>
-		<?= viewLoginForm(); ?>
+		<?php
+		if (!isset($membre)) {
+			$membre = [];
+		}
+		if (!isset($errors)) {
+			$errors = [];
+		}
+		viewLoginForm($errors);
+		viewSignupForm($membre, $errors);
+		?>
+
 		<div class="container">
 
 			<?php

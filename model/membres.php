@@ -34,6 +34,10 @@ function getMembreByLogin ($pseudo, $mdp) {
 function createMembre ($form) {
   global $pdo;
 
+  if (!isset($form['statut'])) {
+    $form['statut'] = 0;
+  }
+
   $query = 'INSERT INTO membre VALUES (null, :pseudo, :mdp, :nom, :prenom, :email, :telephone, :civilite, :statut, NOW())';
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(':pseudo',               $form['pseudo'], PDO::PARAM_STR);
