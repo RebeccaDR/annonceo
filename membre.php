@@ -4,8 +4,6 @@
   require './model/index.php';  // calls $pdo + $options
   require './templates/index.php';
 
-  include './templates/top.php';
-
   // echo '<pre>';
   // print_r($_REQUEST);
   // echo '</pre>';
@@ -37,6 +35,8 @@
       $membre = [];
     }
   }
+
+  include './templates/top.php';
 
   // Print raw return of getMembres function
   viewMembreForm($membre, $errors);

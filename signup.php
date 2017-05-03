@@ -23,8 +23,6 @@ if (isset($_REQUEST['action'])) {
 
 include './templates/top.php';
 
-// viewSignupForm($membre, $errors);
-
 
 include './templates/bottom.php';
 

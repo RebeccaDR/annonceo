@@ -5,6 +5,17 @@
 
   include './templates/top.php';
 
+  // Message d'alerte, création ou update enregistrée
+  if (isset($_REQUEST['create_success'])) {
+    echo '<div class="alert alert-success" role="alert">Annonce créée avec succès</div>';
+  }
+  if (isset($_REQUEST['update_success'])) {
+    echo '<div class="alert alert-success" role="alert">Annonce modifiée avec succès</div>';
+  }
+  if (isset($_REQUEST['delete_success'])) {
+    echo '<div class="alert alert-success" role="alert">Annonce supprimée avec succès</div>';
+  }
+
   $annonces = getAnnonces();
 
   // echo "<pre>";

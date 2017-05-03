@@ -3,8 +3,6 @@
   require './model/index.php'; // récupère fichier de connexion : $options et $pdo
   require './templates/index.php'; // récupère le fichier qui regroupe tous les templates
 
-  include './templates/top.php';
-
   if (isset($_REQUEST['action'])) { // Si on a récupéré une "action" au click depuis categories.php (input hidden)
     $errors = checkCategorieForm($_REQUEST, $_REQUEST['action']); // on check d'abord s'il y a des erreurs dans le formulaire en passant la fonction checkCategorieForm dans la variable $errors. On pourra réutiliser $errors comme second paramètre de la fonction qui affiche le formulaire (viewFormCategorie).
 
@@ -31,6 +29,8 @@
       $categorie = []; // Si on n'a pas reçu d'id_categorie en arrivant sur la page, on est dans un cas "create", il faut que les champs restent vides.
     }
   }
+
+  include './templates/top.php';
 
   viewFormCategorie($categorie, $errors); // On passe $errors et $categorie dans la fonction template qui va afficher le formulaire, rempli ou non.
 
