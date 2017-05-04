@@ -119,6 +119,9 @@ function viewMembreForm ($membre, $errors) {
           <option value="f" <?= isset($membre['civilite']) && $membre['civilite'] == 'f' ? 'selected="selected"' : '' ?>>Femme</option>
         </select>
       </div>
+      <?php
+      if (isUserAdmin()) {
+       ?>
       <div class="form-group">
         <label class="control-label">Droits</label>
         <select name="statut" class="form-control">
@@ -126,7 +129,40 @@ function viewMembreForm ($membre, $errors) {
           <option value="1" <?= isset($membre['statut']) && $membre['statut'] == '1' ? 'selected="selected"' : '' ?>>Admin</option>
         </select>
       </div>
+      <?php
+      } else {
+      ?>
+      <input type="hidden" name="statut" value="<?= isset($membre['statut']) ? $membre['statut'] : '' ?>">
+      <?php
+      }
+       ?>
       <input class="btn btn-primary" type="submit" value="<?= $idMembreExists ? 'Mettre à jour' : 'Créer un nouveau membre' ?>"/>
     </form>
+  <?php
+}
+
+function viewMembreProfil ($membre) {
+  ?>
+  <p>
+    <b>Pseudo :</b> <?= $membre['pseudo'] ?>
+  </p>
+  <p>
+    <b>Prénom / Nom  :</b> <?= $membre['prenom'] ?> <?= $membre['nom'] ?>
+  </p>
+  <p>
+    <b>Email :</b> <?= $membre['email'] ?>
+  </p>
+  <p>
+    <b>Téléphone :</b> <?= $membre['telephone'] ?>
+  </p>
+  <p>
+    <b>Civilite :</b> <?= $membre['civilite'] ?>
+  </p>
+  <p>
+    <b>Date d'inscription :</b> <?= $membre['date_enregistrement'] ?>
+  </p>
+  <p>
+    <b>Note utilisateurs :</b> <?= viewStars($membre['note']) ?> (basé sur <?= isset($membre['nb_notes']) ? $membre['nb_notes'] : 0 ?> notes)
+  </p>
   <?php
 }

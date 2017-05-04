@@ -13,7 +13,11 @@
 
     if ($_REQUEST['action'] == 'update' && count($errors) == 0) {
       updateMembre($_REQUEST['id_membre'], $_REQUEST);
-      header('Location: membres.php?update_success=true');
+      if (isUserAdmin()) {
+        header('Location: membres.php?update_success=true');
+      } else {
+        header('Location: profil.php?update_success=true&id=' . $_REQUEST['id_membre']);
+      }
     }
     if ($_REQUEST['action'] == 'create' && count($errors) == 0) {
       createMembre($_REQUEST);

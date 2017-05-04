@@ -17,5 +17,10 @@ function isUserAdmin() {
 	return isUserConnected() && $_SESSION['currentUser']['statut'] == 1;
 }
 
+function redirectUnauthorizedUsers() {
+  if (! isUserAdmin()) {
+    header('Location: index.php');
+  }
+}
 
  ?>

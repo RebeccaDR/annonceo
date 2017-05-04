@@ -66,6 +66,9 @@ function viewFormNote ($note) {
   <form method="post" action="note.php">
     <input type="hidden" name="action" value="<?= $idNoteExists ? 'update' : 'create' ?>">
     <input type="hidden" name="id_note" value="<?= $idNoteExists ? $note['id_note'] : '' ?>">
+    <?php
+    if (isUserAdmin()) {
+     ?>
     <div class="form-group">
       <label class="control-label">Donné par l'utilisateur</label>
       <input type="hidden" name="membre_id1" value="<?= $note['membre_id1'] ?>">
@@ -76,6 +79,14 @@ function viewFormNote ($note) {
       <input type="hidden" name="membre_id2" value="<?= $note['membre_id2'] ?>">
       <input class="form-control" type="text" disabled="disabled" value="<?= $note['pseudo2'] ?>">
     </div>
+    <?php
+    } else {
+    ?>
+    <input type="hidden" name="membre_id1" value="<?= $note['membre_id1'] ?>">
+    <input type="hidden" name="membre_id2" value="<?= $note['membre_id2'] ?>">
+    <?php
+    }
+     ?>
     <div class="form-group">
       <label class="control-label">Note</label>
       <div class="rating">
@@ -101,7 +112,7 @@ function viewFormNote ($note) {
       <label class="control-label">Avis</label>
       <textarea class="form-control" type="text" name="avis" placeholder="Ecrire un avis"><?= isset($note['avis']) ? $note['avis'] : '' ?></textarea>
     </div>
-    <input class="btn btn-primary" type="submit" value="<?= $idNoteExists ? 'Mettre à jour' : 'Envoyer mon note' ?>"/>
+    <input class="btn btn-primary" type="submit" value="<?= $idNoteExists ? 'Mettre à jour' : 'Envoyer ma note' ?>"/>
   </form>
   <?php
 }

@@ -12,7 +12,10 @@ function getMembres () {
 function getMembre ($idMembre) {
   global $pdo;
 
-  $query = 'SELECT * FROM membre WHERE id_membre = ' . $idMembre;
+  $query = 'SELECT membre.*, AVG(note.note) AS note, COUNT(note.membre_id2) AS nb_notes FROM membre
+        LEFT JOIN note ON note.membre_id2 = membre.id_membre
+        WHERE id_membre = ' . $idMembre . '
+        GROUP BY membre.id_membre';
 	$stmt = $pdo->query($query);
 
   return $stmt->fetch();

@@ -5,13 +5,18 @@ require './templates/index.php';
 
 if (isset($_REQUEST['action'])) {
 
+  print_r($_REQUEST);
   if ($_REQUEST['action'] == 'update') {
     updateNote($_REQUEST['id_note'], $_REQUEST);
     header('Location: notes.php?update_success=true');
   }
   if ($_REQUEST['action'] == 'create') {
     createNote($_REQUEST);
-    header('Location: notes.php?create_success=true');
+    if (isUserAdmin()) {
+      header('Location: notes.php?update_success=true');
+    } else {
+      header('Location: profil.php?note_success=true&id=' . $_REQUEST['membre_id2']);
+    }
   }
   if ($_REQUEST['action'] == 'delete') {
     deleteNote($_REQUEST['id_note']);
