@@ -12,7 +12,7 @@
     if ($_REQUEST['action'] == 'update' && count($errors) == 0) {
       updatePhoto($_REQUEST['photo_id'], $_REQUEST);
       updateAnnonce($_REQUEST['id_annonce'], $_REQUEST);
-      // header('Location: annonces.php?update_success=true');
+      header('Location: annonces.php?update_success=true');
     }
     if ($_REQUEST['action'] == 'create' && count($errors) == 0) {
       createAnnonce($_REQUEST);

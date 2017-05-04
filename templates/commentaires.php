@@ -46,7 +46,7 @@ function viewFormCommentaire ($commentaire) {
   ?>
 
   <h2><?= $formTitle ?></h2>
-  <form method="post" action="commentaire.php" enctype="multipart/form-data">
+  <form method="post" action="commentaire.php">
     <input type="hidden" name="action" value="<?= $idCommentaireExists ? 'update' : 'create' ?>">
     <input type="hidden" name="id_commentaire" value="<?= $idCommentaireExists ? $commentaire['id_commentaire'] : '' ?>">
     <div class="form-group">

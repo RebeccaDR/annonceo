@@ -14,3 +14,4 @@ require('./model/categories.php');
 require('./model/annonces.php');
 require('./model/security.php');
 require('./model/commentaires.php');
+require('./model/notes.php');

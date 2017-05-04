@@ -36,9 +36,9 @@
 							<li><a href="membres.php">Membres</a></li>
 							<li><a href="categories.php">Catégories</a></li>
 							<li><a href="commentaires.php">Commentaires</a></li>
-	            <li><a href="#">Notes</a></li>
+	            <li><a href="notes.php">Notes</a></li>
 	            <li role="separator" class="divider"></li>
-							<li><a href="#">Statistiques</a></li>
+							<li><a href="statistiques.php">Statistiques</a></li>
           	</ul>
         	</li>
 					<?php
