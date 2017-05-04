@@ -68,7 +68,7 @@
       $stmt->bindParam(':ville', $form['ville'], PDO::PARAM_STR);
       $stmt->bindParam(':adresse', $form['adresse'], PDO::PARAM_STR);
       $stmt->bindParam(':cp', $form['cp'], PDO::PARAM_INT);
-      $stmt->bindParam(':categorie_id', $form['categorie_id'], PDO::PARAM_INT);
+      $stmt->bindParam(':categorie_id', $form['id_categorie'], PDO::PARAM_INT);
 
       $stmt->execute();
   }

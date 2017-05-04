@@ -3,8 +3,6 @@
   require './model/index.php';
   require './templates/index.php';
 
-  include './templates/top.php';
-
 
   $categories = getCategories();
 
@@ -14,7 +12,7 @@
     if ($_REQUEST['action'] == 'update' && count($errors) == 0) {
       updatePhoto($_REQUEST['photo_id'], $_REQUEST);
       updateAnnonce($_REQUEST['id_annonce'], $_REQUEST);
-      header('Location: annonces.php?update_success=true');
+      // header('Location: annonces.php?update_success=true');
     }
     if ($_REQUEST['action'] == 'create' && count($errors) == 0) {
       createAnnonce($_REQUEST);
@@ -41,6 +39,8 @@
       $photo = ['photo1' => '', 'photo2' => '', 'photo3' => '', 'photo4' => '', 'photo5' => ''];
     }
   }
+
+  include './templates/top.php';
 
   viewFormAnnonce($annonce, $categories, $auteur, $photo, $errors);
 

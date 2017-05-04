@@ -102,7 +102,7 @@
           </div>
           <div class="form-group">
             <label class="control-label">Description longue</label>
-            <textarea class="form-control" name="description_longue" placeholder="Description longue" value="<?= isset($annonce['description_longue']) ? $annonce['description_longue'] : '' ?>"></textarea>
+            <textarea class="form-control" name="description_longue" placeholder="Description longue"><?= isset($annonce['description_longue']) ? $annonce['description_longue'] : '' ?></textarea>
             <span class="form-error-label"><?= isset($errors['description_longue']) ? $errors['description_longue'] : '' ?></span>
           </div>
           <h3>Adresse</h3>
@@ -154,6 +154,7 @@
             if ($photo != ''):
             ?>
             <div class="thumbnail form-thumbnail">
+              <input type="hidden" name="<?= $key ?>" value="<?= $photo ?>">
               <img src="uploads/<?= $photo ?>">
             </div>
             <?php
