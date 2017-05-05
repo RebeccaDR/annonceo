@@ -101,6 +101,7 @@ a.blue-text {
 
 .panel {
   border-radius: 0;
+  margin: 20px;
 }
 
 .panel-title {
