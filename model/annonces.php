@@ -34,7 +34,13 @@
   function getAnnonce ($idAnnonce) {
     global $pdo;
 
-    $query = 'SELECT * FROM annonce WHERE id_annonce = ' . $idAnnonce;
+    $query = 'SELECT
+      a.id_annonce, a.titre AS titre_annonce, a.description_courte, a.description_longue, a.prix, a.pays, a.ville, a.adresse, a.cp, membre.pseudo, a.photo_id, a.membre_id, photo.*, categorie.titre AS titre_categorie, a.date_enregistrement
+      FROM annonce a
+      LEFT JOIN membre ON a.membre_id = membre.id_membre
+      LEFT JOIN photo ON a.photo_id = photo.id_photo
+      LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie
+      WHERE a.id_annonce = ' . $idAnnonce;
     $stmt = $pdo->query($query);
 
     return $stmt->fetch();

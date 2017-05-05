@@ -63,7 +63,7 @@
          if (isUserAdmin()) :
          ?>
         <td>
-          <a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>">
+          <a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>&amp;edit=true">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
           </a>
         </td>
@@ -98,7 +98,7 @@
           <input type="hidden" name="id_annonce" value="<?= $idAnnonceExists ? $annonce['id_annonce'] : '' ?>">
           <div class="form-group">
             <label class="control-label">Titre</label>
-            <input class="form-control" type="text" name="titre" placeholder="Titre de l'annonce" value="<?= isset($annonce['titre']) ? $annonce['titre'] : '' ?>">
+            <input class="form-control" type="text" name="titre" placeholder="Titre de l'annonce" value="<?= isset($annonce['titre_annonce']) ? $annonce['titre_annonce'] : '' ?>">
             <span class="form-error-label"><?= isset($errors['titre']) ? $errors['titre'] : '' ?></span>
           </div>
           <div class="form-group">
@@ -200,4 +200,29 @@
       </div>
     <?php
   }
- ?>
+
+ function viewAnnonce ($annonce, $categories, $membre, $photo) {
+   ?>
+   <div class="row">
+     <div class="col-md-9">
+       <h2><?= $annonce['titre_annonce'] ?></h2>
+       <?php
+       if (isUserAdmin()) {
+       ?>
+       <a class="btn btn-primary" href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>&amp;edit=true">
+         Modifier cette annonce
+       </a>
+       <?php
+        }
+       ?>
+       <p><?= $annonce['titre_categorie'] ?></p>
+       <div class="images">
+         <img src="<?= $photo['photo1'] ?>" />
+       </div>
+     </div>
+     <div class="col-md-3">
+       <p>Publié par <?= $membre['pseudo'] ?></p>
+       <p><?= $annonce['date_enregistrement'] ?></p>
+     </div>
+   <?php
+ }

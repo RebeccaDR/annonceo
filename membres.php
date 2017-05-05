@@ -2,6 +2,8 @@
 
   include ('./util/init.php');
 
+  redirectUnauthorizedUsers('admin_only');
+
   viewTop();
 
   // Message d'alerte, création ou update enregistrée

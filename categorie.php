@@ -2,7 +2,7 @@
 
   include ('./util/init.php'); // récupère fichier de connexion : $options et $pdo et le fichier qui regroupe tous les templates
 
-  securityRedirect('Accès refusé');
+  redirectUnauthorizedUsers('admin_only');
 
   if (isset($_REQUEST['action'])) { // Si on a récupéré une "action" au click depuis categories.php (input hidden)
     $errors = checkCategorieForm($_REQUEST, $_REQUEST['action']); // on check d'abord s'il y a des erreurs dans le formulaire en passant la fonction checkCategorieForm dans la variable $errors. On pourra réutiliser $errors comme second paramètre de la fonction qui affiche le formulaire (viewFormCategorie).

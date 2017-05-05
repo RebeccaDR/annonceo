@@ -4,6 +4,8 @@
 
   $categories = getCategories();
 
+  $isForm = false;
+
   if (isset($_REQUEST['action'])) {
     $errors = checkAnnonceForm($_REQUEST, $_REQUEST['action']);
 
@@ -31,7 +33,13 @@
       $annonce = getAnnonce($_REQUEST['id_annonce']);
       $auteur = getMembre($annonce['membre_id']);
       $photo = getPhoto($annonce['photo_id']);
+
+      if (isUserAdmin() && isset($_REQUEST['edit'])) {
+        $isForm = true;
+      }
     } else {
+      redirectUnauthorizedUsers('logged_user_only');
+
       $annonce = [];
       $auteur = getMembre($currentUser['id_membre']);
       $photo = ['photo1' => '', 'photo2' => '', 'photo3' => '', 'photo4' => '', 'photo5' => ''];
@@ -40,7 +48,11 @@
 
   viewTop();
 
-  viewFormAnnonce($annonce, $categories, $auteur, $photo, $errors);
+  if ($isForm == true) {
+    viewFormAnnonce($annonce, $categories, $auteur, $photo, $errors);
+  } else {
+    viewAnnonce($annonce, $categories, $auteur, $photo);
+  }
 
   viewBottom();
 

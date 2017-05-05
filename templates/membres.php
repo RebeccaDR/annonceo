@@ -138,26 +138,26 @@ function viewMembreForm ($membre, $errors) {
 
 function viewMembreProfil ($membre) {
   ?>
-  <p>
-    <b>Pseudo :</b> <?= $membre['pseudo'] ?>
-  </p>
-  <p>
-    <b>Prénom / Nom  :</b> <?= $membre['prenom'] ?> <?= $membre['nom'] ?>
-  </p>
-  <p>
-    <b>Email :</b> <?= $membre['email'] ?>
-  </p>
-  <p>
-    <b>Téléphone :</b> <?= $membre['telephone'] ?>
-  </p>
-  <p>
-    <b>Civilite :</b> <?= $membre['civilite'] ?>
-  </p>
-  <p>
-    <b>Date d'inscription :</b> <?= $membre['date_enregistrement'] ?>
-  </p>
-  <p>
-    <b>Note utilisateurs :</b> <?= viewStars($membre['note']) ?> (basé sur <?= isset($membre['nb_notes']) ? $membre['nb_notes'] : 0 ?> notes)
-  </p>
+    <p>
+      <b>Pseudo :</b> <?= $membre['pseudo'] ?>
+    </p>
+    <p>
+      <b>Prénom / Nom  :</b> <?= $membre['prenom'] ?> <?= $membre['nom'] ?>
+    </p>
+    <p>
+      <b>Email :</b> <?= $membre['email'] ?>
+    </p>
+    <p>
+      <b>Téléphone :</b> <?= $membre['telephone'] ?>
+    </p>
+    <p>
+      <b>Civilite :</b> <?= $membre['civilite'] ?>
+    </p>
+    <p>
+      <b>Date d'inscription :</b> <?= $membre['date_enregistrement'] ?>
+    </p>
+    <p>
+      <b>Note utilisateurs :</b> <?= viewStars($membre['note']) ?> (basé sur <?= isset($membre['nb_notes']) ? $membre['nb_notes'] : 0 ?> notes)
+    </p>
   <?php
 }

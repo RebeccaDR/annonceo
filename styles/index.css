@@ -4,11 +4,9 @@ body {
 }
 
 /* NAVBAR */
-.navbar {
-  background-color: #1B62B2;
-}
 
 .navbar-default .navbar-brand {
+  background-color: #1B62B2;
   font-size: 1.3em;
 }
 

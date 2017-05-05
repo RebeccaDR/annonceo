@@ -4,7 +4,6 @@ include ('./util/init.php');
 
 viewTop();
 
-
 if (isset($_REQUEST['update_success'])) {
   echo '<div class="alert alert-success" role="alert">La note a bien été mise à jour.</div>';
 }

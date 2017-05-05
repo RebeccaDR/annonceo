@@ -27,19 +27,11 @@
     $titre = 'Annonces';
     $annonces = getAnnonces();
   }
-  ?>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title"><?=$titre?></h2>
-    </div>
 
-  <?php
 
   viewListeAnnonces($annonces);
 
   ?>
-
-  </div>
 
   <a class="btn btn-default btn-creation" href="./annonce.php">Créer une nouvelle annonce</a>
   <?php

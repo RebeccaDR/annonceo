@@ -2,7 +2,7 @@
 
   include ('./util/init.php');
 
-  securityRedirect('Accès refusé');
+  redirectUnauthorizedUsers('admin_only');
 
   viewTop();
 

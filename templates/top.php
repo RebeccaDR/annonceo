@@ -21,7 +21,13 @@
 				<a class="navbar-brand" href="index.php">ANN<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>NCEO</a>
 				<ul class="nav navbar-nav navbar-left">
 					<li><a href="annonces.php">Consulter les annonces</a></li>
+					<?php
+						if (isUserConnected()):
+					 ?>
 					<li><a href="annonce.php">Créer une annonce</a></li>
+					<?php
+						endif;
+					 ?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php

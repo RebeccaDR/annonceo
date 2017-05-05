@@ -2,11 +2,19 @@
 
   include ('./util/init.php');
 
+
+  if (!isset($_REQUEST['id'])) {
+    redirectUnauthorizedUsers('logged_user_only');
+    $id_membre = $currentUser['id_membre'];
+  } else {
+    $id_membre = $_REQUEST['id'];
+  }
+
   viewTop();
 
-  $membre = getMembre($_REQUEST['id']);
+  $membre = getMembre($id_membre);
 
-  if ($currentUser['id_membre'] == $_REQUEST['id']) {
+  if (isIdCurrentUser($id_membre)) {
     $titre = 'Mon profil';
   } else {
 
@@ -34,17 +42,17 @@
 
   viewMembreProfil($membre);
 
-  if ($currentUser['id_membre'] == $_REQUEST['id']) {
+  if (isIdCurrentUser($id_membre)) {
     ?>
     <a class="btn btn-default" href="./membre.php?id_membre=<?= $currentUser['id_membre'] ?>">Modifier mon profil</a>
     <?php
-  } else {
-    $note = getNoteByUsers($currentUser['id_membre'], $_REQUEST['id']);
+  } else if (isUserConnected()){
+    $note = getNoteByUsers($currentUser['id_membre'], $id_membre);
 
     if (empty($note)) {
       $note = [
         'membre_id1' => $currentUser['id_membre'],
-        'membre_id2' => $_REQUEST['id'],
+        'membre_id2' => $id_membre,
         'note' => 0
       ];
     }
