@@ -1,9 +1,44 @@
+body {
+  font-family: 'Muli', sans-serif;
+  font-weight: 600;
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: #1B62B2;
+}
+
+.navbar-default .navbar-brand {
+  font-size: 1.3em;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-brand {
+  color: #FF685A;
+}
+
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: #FF9788;
+  background-color: #267AE3;
+  transition: 0.2s;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+  color: #1B62B2;
+  background-color: #FF685A;
+  transition: 0.3s;
+}
+
+.modal-body .form-control {
+  border-radius: 0;
+}
+
 .form-error-label, a.red-text {
   color: #c9302c !important;
 }
 
 a.blue-text {
-  color: dodgerblue !important;
+  color: #1B62B2;
 }
 
 .photo-form {
@@ -15,6 +50,32 @@ a.blue-text {
   min-height: 120px;
   vertical-align: top;
   margin: 0 2px;
+}
+
+/* BUTTONS */
+
+.btn, .btn-default, .btn-security {
+  border-radius: 0;
+}
+
+.btn-security {
+  background-color: #1B62B2;
+  color: #FF685A;
+  border: 0px;
+  font-weight: 600;
+}
+
+.btn-creation:hover {
+  background-color: #FF685A;
+  color: #FFF;
+  transition: 0.2s;
+  border: 0px;
+}
+
+.btn-security:hover {
+  color: #1B62B2;
+  background-color: #FF685A;
+  transition: 0.3s;
 }
 
 .btn-file {
@@ -35,6 +96,17 @@ a.blue-text {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+
+/* TABLES */
+
+.panel {
+  border-radius: 0;
+}
+
+.panel-title {
+  font-size: 1.5em;
 }
 
 .txt-center {

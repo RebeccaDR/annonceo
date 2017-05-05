@@ -4,11 +4,27 @@
     global $pdo;
 
     $query = 'SELECT
-              a.id_annonce, a.titre AS titre_annonce, a.description_courte, a.description_longue, a.prix, a.pays, a.ville, a.adresse, a.cp, membre.pseudo, photo.*, categorie.titre AS titre_categorie, a.date_enregistrement
+              a.id_annonce, a.titre AS titre_annonce, a.description_courte, a.description_longue, a.prix, a.pays, a.ville, a.adresse, a.cp, membre.pseudo, a.membre_id, photo.*, categorie.titre AS titre_categorie, a.date_enregistrement
               FROM annonce a
               LEFT JOIN membre ON a.membre_id = membre.id_membre
               LEFT JOIN photo ON a.photo_id = photo.id_photo
               LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie
+              ORDER BY id_annonce';
+    $stmt = $pdo->query($query);
+
+    return $stmt->fetchAll();
+  }
+
+  function getAnnoncesByUser ($membre_id) {
+    global $pdo;
+
+    $query = 'SELECT
+              a.id_annonce, a.titre AS titre_annonce, a.description_courte, a.description_longue, a.prix, a.pays, a.ville, a.adresse, a.cp, membre.pseudo, a.membre_id, photo.*, categorie.titre AS titre_categorie, a.date_enregistrement
+              FROM annonce a
+              LEFT JOIN membre ON a.membre_id = membre.id_membre
+              LEFT JOIN photo ON a.photo_id = photo.id_photo
+              LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie
+              WHERE a.membre_id = ' . $membre_id . '
               ORDER BY id_annonce';
     $stmt = $pdo->query($query);
 

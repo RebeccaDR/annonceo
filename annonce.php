@@ -1,8 +1,6 @@
 <?php
 
-  require './model/index.php';
-  require './templates/index.php';
-
+  include ('./util/init.php');
 
   $categories = getCategories();
 
@@ -35,16 +33,16 @@
       $photo = getPhoto($annonce['photo_id']);
     } else {
       $annonce = [];
-      $auteur = [];
+      $auteur = getMembre($currentUser['id_membre']);
       $photo = ['photo1' => '', 'photo2' => '', 'photo3' => '', 'photo4' => '', 'photo5' => ''];
     }
   }
 
-  include './templates/top.php';
+  viewTop();
 
   viewFormAnnonce($annonce, $categories, $auteur, $photo, $errors);
 
-  include './templates/bottom.php'
+  viewBottom();
 
 
  ?>

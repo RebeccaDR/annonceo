@@ -1,29 +1,28 @@
 <?php
 
-  // Force display of errors
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
+include ('./util/init.php');
 
-  // Require Model & template functions
-  require './model/index.php';
-  require './templates/index.php';
+viewTop();
 
-  include './templates/top.php';
+if (isset($_REQUEST['create_success'])) {
+  echo '<div class="alert alert-success" role="alert">Votre compte a été créé avec succès</div>';
+}
 
-  if (isset($_REQUEST['create_success'])) {
-    echo '<div class="alert alert-success" role="alert">Votre compte a été créé avec succès</div>';
-  }
+if (isUserConnected()) {
+  echo '<h2>Bienvenue ' . $currentUser['pseudo'] . '</h2>';
+  echo '<p>Nous sommes ravis de vous revoir !</p>';
+} else {
+  echo '<h2>Bienvenue sur Annonceo</h2>';
+}
 
-  echo 'coucou';
+viewBottom();
 
-  include './templates/bottom.php';
-
-  if (isset($_REQUEST['create_success'])) {
-    ?>
-    <script type="text/javascript">
-        $(window).on('load',function(){
-            $('#loginModal').modal('show');
-        });
-    </script>
-    <?php
-  }
+if (isset($_REQUEST['create_success'])) {
+  ?>
+  <script type="text/javascript">
+      $(window).on('load',function(){
+          $('#loginModal').modal('show');
+      });
+  </script>
+  <?php
+}

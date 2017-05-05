@@ -1,7 +1,6 @@
 <?php
 
-require './model/index.php';
-require './templates/index.php';
+include ('./util/init.php');
 
 if (isset($_REQUEST['action'])) {
 
@@ -29,7 +28,7 @@ if (isset($_REQUEST['action'])) {
   }
 }
 
-include './templates/top.php';
+viewTop();
 
 viewFormCommentaire($commentaire);
 
@@ -45,6 +44,6 @@ if (isset($_REQUEST['id_commentaire']) && $_REQUEST['id_commentaire'] != '') {
 <?php
 }
 
-include './templates/bottom.php'
+viewBottom();
 
  ?>

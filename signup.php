@@ -1,7 +1,6 @@
 <?php
 
-require './model/index.php';
-require './templates/index.php';
+include ('./util/init.php');
 
 
 
@@ -21,10 +20,10 @@ if (isset($_REQUEST['action'])) {
 }
 
 
-include './templates/top.php';
+viewTop();
 
 
-include './templates/bottom.php';
+viewBottom();
 
 ?>
 <script type="text/javascript">

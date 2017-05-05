@@ -1,6 +1,5 @@
 <?php
 
-
 function getCurrentUser () {
   return $_SESSION['currentUser'];
 }
@@ -18,9 +17,13 @@ function isUserAdmin() {
 }
 
 function redirectUnauthorizedUsers() {
-  if (! isUserAdmin()) {
-    header('Location: index.php');
+  if (! isUserConnected()) {
+    securityRedirect('Accès réservé aux utilisateurs connectés');
   }
+}
+
+function securityRedirect($msg = 'Accès refusé') {
+  header('Location: 401.php?security='.$msg);
 }
 
  ?>

@@ -21,7 +21,9 @@ function viewListeMembres ($membres) {
 		?>
     <tr>
 			<td><?= $membre['id_membre']?></td>
-      <td><?= $membre['pseudo']?></td>
+      <td>
+        <a href="profil.php?id=<?=$membre['id_membre']?>"><?= $membre['pseudo']?></a>
+      </td>
       <td><?= $membre['nom']?></td>
       <td><?= $membre['prenom']?></td>
       <td><?= $membre['email']?></td>
@@ -45,14 +47,7 @@ function viewListeMembres ($membres) {
 function viewMembreForm ($membre, $errors) {
   $idMembreExists = isset($membre['id_membre']) && $membre['id_membre'] != '';
 
-  if ($idMembreExists) {
-    $formTitle = 'Modifier un utilisateur';
-  } else {
-    $formTitle = 'Créer un utilisateur';
-  }
-
   ?>
-    <h2><?= $formTitle ?></h2>
     <form action="membre.php" method="post">
       <input type="hidden" name="action" value="<?= $idMembreExists ? 'update' : 'create' ?>">
       <input type="hidden" name="id_membre" value="<?= $idMembreExists ? $membre['id_membre'] : '' ?>">
@@ -68,7 +63,7 @@ function viewMembreForm ($membre, $errors) {
         <label class="control-label">Mot de passe</label>
         <input
           class="form-control" type="password" name="mdp" placeholder="Votre Mot de passe"
-          value="<?= isset($membre['mdp']) ? $membre['mdp'] : '' ?>"
+          value=""
         >
         <span class="form-error-label"><?= isset($errors['mdp']) ? $errors['mdp'] : '' ?></span>
       </div>

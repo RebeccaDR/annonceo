@@ -6,50 +6,70 @@
     ?>
     <table class="table table-striped table-bordered">
       <tr> <!-- ligne des titres -->
+        <?php
+        if (isUserAdmin()) :
+        ?>
         <th>id annonce</th>
+        <?php
+        endif;
+        ?>
         <th>titre</th>
         <th>description courte</th>
-        <th>description longue</th>
         <th>prix</th>
-        <th>pays</th>
-        <th>ville</th>
         <th>adresse</th>
-        <th>CP</th>
         <th>auteur</th>
         <th>photo(s)</th>
         <th>catégorie</th>
         <th>date</th>
+        <?php
+        if (isUserAdmin()) :
+        ?>
         <th>actions</th>
+        <?php
+        endif;
+        ?>
       </tr>
       <?php
         foreach ($annonces as $annonce):
       ?>
       <tr>
+        <?php
+         if (isUserAdmin()) :
+         ?>
         <td><?= $annonce['id_annonce']?></td>
-        <td><?= $annonce['titre_annonce']?></td>
+        <?php
+        endif;
+        ?>
+        <td><a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>"><?= $annonce['titre_annonce']?></a></td>
         <td><?= $annonce['description_courte']?></td>
-        <td><?= $annonce['description_longue']?></td>
         <td><?= $annonce['prix']?></td>
-        <td><?= $annonce['pays']?></td>
-        <td><?= $annonce['ville']?></td>
-        <td><?= $annonce['adresse']?></td>
-        <td><?= $annonce['cp']?></td>
-        <td><?= $annonce['pseudo']?></td>
+        <td>
+        <?= $annonce['adresse']?><br/>
+        <?= $annonce['cp']?> - <?= $annonce['ville']?><br/>
+        <?= $annonce['pays']?>
+        </td>
+        <td><a href="profil.php?id=<?= $annonce['membre_id'] ?>"><?= $annonce['pseudo']?></a></td>
         <td>
         <?php if (isset($annonce['photo1'])) : ?>
           <div class="thumbnail">
             <img src="uploads/<?= $annonce['photo1'] ?>">
-            <a href="#">Voir les autres photos</a>
+            <a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>">Voir les autres photos</a>
           </div>
         <?php endif; ?>
         </td>
         <td><?= $annonce['titre_categorie']?></td>
         <td><?= $annonce['date_enregistrement']?></td>
+        <?php
+         if (isUserAdmin()) :
+         ?>
         <td>
           <a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
           </a>
         </td>
+        <?php
+        endif;
+        ?>
       </tr>
       <?php
         endforeach;
@@ -130,12 +150,18 @@
         <div class="col-md-6">
           <?= viewPhotoForm($photo, $errors); ?>
           <hr/>
-          <div class="form-group">
-            <label class="control-label">Auteur</label>
-            <input type="hidden" name="membre_id" value="<?= $membre['id_membre'] ?>">
-            <input class="form-control" type="text" disabled="disabled" value="<?= $membre['pseudo'] ?>">
-          </div>
-          <hr/>
+          <?php
+           if (isUserAdmin()) :
+           ?>
+           <div class="form-group">
+             <label class="control-label">Auteur</label>
+             <input type="hidden" name="membre_id" value="<?= $membre['id_membre'] ?>">
+             <input class="form-control" type="text" disabled="disabled" value="<?= $membre['pseudo'] ?>">
+           </div>
+           <hr/>
+          <?php
+          endif;
+          ?>
         </div>
       </div>
       <input class="btn btn-primary" type="submit" value="<?= $idAnnonceExists ? 'Mettre à jour' : 'Créer l\'annonce' ?>"/>

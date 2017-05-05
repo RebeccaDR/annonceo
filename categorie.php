@@ -1,7 +1,8 @@
 <?php
 
-  require './model/index.php'; // récupère fichier de connexion : $options et $pdo
-  require './templates/index.php'; // récupère le fichier qui regroupe tous les templates
+  include ('./util/init.php'); // récupère fichier de connexion : $options et $pdo et le fichier qui regroupe tous les templates
+
+  securityRedirect('Accès refusé');
 
   if (isset($_REQUEST['action'])) { // Si on a récupéré une "action" au click depuis categories.php (input hidden)
     $errors = checkCategorieForm($_REQUEST, $_REQUEST['action']); // on check d'abord s'il y a des erreurs dans le formulaire en passant la fonction checkCategorieForm dans la variable $errors. On pourra réutiliser $errors comme second paramètre de la fonction qui affiche le formulaire (viewFormCategorie).
@@ -30,7 +31,7 @@
     }
   }
 
-  include './templates/top.php';
+  viewTop();
 
   viewFormCategorie($categorie, $errors); // On passe $errors et $categorie dans la fonction template qui va afficher le formulaire, rempli ou non.
 
@@ -47,6 +48,6 @@ if (isset($_REQUEST['id_categorie']) && $_REQUEST['id_categorie'] != '') {
 <?php
 }
 
-  include './templates/bottom.php';
+  viewBottom();
 
  ?>

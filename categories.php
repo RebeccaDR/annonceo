@@ -1,9 +1,10 @@
 <?php
 
-  require './model/index.php';
-  require './templates/index.php';
+  include ('./util/init.php');
 
-  include './templates/top.php';
+  securityRedirect('Accès refusé');
+
+  viewTop();
 
   // Message d'alerte, création ou update enregistrée
   if (isset($_REQUEST['create_success'])) { // On vérifie si on a bien récupéré "create_success" dans le lien
@@ -21,10 +22,10 @@
   viewListeCategories($categories); // on passe $categories (qui représente donc toutes les valeur du tableau "categorie" dans la bdd) dans la fonction viewListeCategories, qui va se charger d'afficher le tableau en html et y plasser les valeurs de $categories.
 
   ?>
-  <a class="btn btn-default" href="./categorie.php">Créer une nouvelle catégorie</a>
+  <a class="btn btn-default btn-creation" href="./categorie.php">Créer une nouvelle catégorie</a>
   <?php
 
 
-  include './templates/bottom.php';
+  viewBottom();
 
  ?>

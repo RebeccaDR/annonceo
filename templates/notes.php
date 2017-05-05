@@ -3,31 +3,69 @@
 function viewListeNotes ($notes) {
   ?>
   <table class="table table-striped table-bordered">
-    <tr>
+    <tr><?php
+      if (isUserAdmin()) :
+      ?>
       <th>id</th>
+      <?php
+      endif;
+      ?>
       <th>Donné par l'utilisateur</th>
+      <?php
+      if (isUserAdmin()) :
+      ?>
       <th>à l'utilisateur</th>
+      <?php
+      endif;
+      ?>
       <th>note</th>
       <th>avis</th>
-      <th>date_enregistrement</th>
+      <th>date enregistrement</th>
+      <?php
+      if (isUserAdmin()) :
+      ?>
       <th>actions</th>
+      <?php
+      endif;
+      ?>
     </tr>
 
     <?php
 			foreach ($notes as $note):
 		?>
-    <tr>
+    <tr> <?php
+      if (isUserAdmin()) :
+      ?>
 			<td><?= $note['id_note']?></td>
-      <td><?= $note['membre_id1'] . ' - ' . $note['pseudo1']?></td>
-      <td><?= $note['membre_id2'] . ' - ' . $note['pseudo2']?></td>
+      <?php
+      endif;
+      ?>
+      <td>
+        <a href="profil.php?id=<?=$note['membre_id1']?>"><?=$note['pseudo1']?></a>
+      </td>
+      <?php
+        if (isUserAdmin()) :
+        ?>
+      <td>
+        <a href="profil.php?id=<?=$note['membre_id2']?>"><?= $note['pseudo2']?></a>
+      </td>
+      <?php
+      endif;
+      ?>
       <td><?= viewStars($note['note'])?></td>
       <td><?= $note['avis']?></td>
       <td><?= $note['date_enregistrement']?></td>
+      <?php
+      if (isUserAdmin()) :
+      ?>
       <td>
         <a href="note.php?id_note=<?= $note['id_note']?>">
           <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </a>
       </td>
+      <?php
+      endif;
+      ?>
     </tr>
     <?php
   endforeach;

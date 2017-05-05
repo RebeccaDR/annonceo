@@ -43,6 +43,20 @@ function getNoteByUsers ($id1, $id2) {
   return $stmt->fetch();
 }
 
+function getNotesByUser ($id2) {
+  global $pdo;
+
+  $query = 'SELECT
+            n.*, m1.pseudo AS pseudo1, m2.pseudo AS pseudo2
+            FROM note n
+            LEFT JOIN membre AS m1 ON n.membre_id1 = m1.id_membre
+            LEFT JOIN membre AS m2 ON n.membre_id2 = m2.id_membre
+            WHERE n.membre_id2 = ' . $id2;
+  $stmt = $pdo->query($query);
+
+  return $stmt->fetchAll();
+}
+
 function createNote ($form) {
   global $pdo;
 

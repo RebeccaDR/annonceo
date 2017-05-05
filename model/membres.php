@@ -41,7 +41,7 @@ function createMembre ($form) {
     $form['statut'] = 0;
   }
 
-  $query = 'INSERT INTO membre VALUES (null, :pseudo, :mdp, :nom, :prenom, :email, :telephone, :civilite, :statut, NOW())';
+  $query = 'INSERT INTO membre VALUES (null, :pseudo, :mdp, :nom, :prenom, :telephone, :email, :civilite, :statut, NOW())';
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(':pseudo',               $form['pseudo'], PDO::PARAM_STR);
   $stmt->bindParam(':mdp',                  sha1($form['mdp']), PDO::PARAM_STR);

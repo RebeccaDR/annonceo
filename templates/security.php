@@ -32,7 +32,7 @@ function viewLoginForm ($errors) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <button type="submit" class="btn btn-primary btn-security">Se connecter</button>
           </div>
         </form>
       </div>

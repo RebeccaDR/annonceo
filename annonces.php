@@ -1,9 +1,8 @@
 <?php
 
-  require './model/index.php';
-  require './templates/index.php';
+  include ('./util/init.php');
 
-  include './templates/top.php';
+  viewTop();
 
   // Message d'alerte, création ou update enregistrée
   if (isset($_REQUEST['create_success'])) {
@@ -16,15 +15,36 @@
     echo '<div class="alert alert-success" role="alert">Annonce supprimée avec succès</div>';
   }
 
-  $annonces = getAnnonces();
+  if (isset($_REQUEST['id'])) {
+    if ($_REQUEST['id'] == $currentUser['id_membre']) {
+      $titre = 'Mes annonces';
+    } else {
+      $membre = getMembre($_REQUEST['id']);
+      $titre = 'Les annonces de ' . $membre['pseudo'];
+    }
+    $annonces = getAnnoncesByUser($_REQUEST['id']);
+  } else {
+    $titre = 'Annonces';
+    $annonces = getAnnonces();
+  }
+  ?>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title"><?=$titre?></h2>
+    </div>
+
+  <?php
 
   viewListeAnnonces($annonces);
 
   ?>
-  <a class="btn btn-default" href="./annonce.php">Créer une nouvelle annonce</a>
+
+  </div>
+
+  <a class="btn btn-default btn-creation" href="./annonce.php">Créer une nouvelle annonce</a>
   <?php
 
-  include './templates/bottom.php';
+  viewBottom();
 
 
  ?>

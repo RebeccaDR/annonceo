@@ -1,11 +1,8 @@
 <?php
 
+  include ('./util/init.php');
 
-  // Require Model & template functions
-  require './model/index.php'; // calls $pdo + $options
-  require './templates/index.php';
-
-  include './templates/top.php';
+  viewTop();
 
   // Message d'alerte, création ou update enregistrée
   if (isset($_REQUEST['create_success'])) {
@@ -20,7 +17,7 @@
   viewListeMembres($membres);  // cf templates/membres.php
 
   ?>
-  <a class="btn btn-default" href="./membre.php">Créer un nouveau membre</a>
+  <a class="btn btn-default btn-creation" href="./membre.php">Créer un nouveau membre</a>
   <?php
 
-  include './templates/bottom.php';
+  viewBottom();

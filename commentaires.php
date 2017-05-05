@@ -1,9 +1,8 @@
 <?php
 
-require './model/index.php';
-require './templates/index.php';
+include ('./util/init.php');
 
-include './templates/top.php';
+viewTop();
 
 // Message d'alerte, création ou update enregistrée
 if (isset($_REQUEST['create_success'])) {
@@ -22,6 +21,6 @@ $commentaires = getCommentaires();
 viewListeCommentaires($commentaires);
 
 
-include './templates/bottom.php';
+viewBottom();
 
  ?>

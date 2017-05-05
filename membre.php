@@ -1,12 +1,7 @@
 <?php
 
-  // Require Model & template functions
-  require './model/index.php';  // calls $pdo + $options
-  require './templates/index.php';
+  include ('./util/init.php');
 
-  // echo '<pre>';
-  // print_r($_REQUEST);
-  // echo '</pre>';
   // if action parameter was passed, the page is a form submission
   if (isset($_REQUEST['action'])) {
     $errors = checkMembreForm($_REQUEST, $_REQUEST['action']);
@@ -40,13 +35,29 @@
     }
   }
 
-  include './templates/top.php';
+  if (isset($_REQUEST['id_membre']) && $_REQUEST['id_membre'] != '') {
+    if ($currentUser['id_membre'] == $_REQUEST['id_membre']) {
+      $formTitle = 'Modifier mon profil';
+    } else if (isUserAdmin()) {
+      $formTitle = 'Modifier un utilisateur';
+    } else {
+      securityRedirect('Accès refusé');
+    }
+  } else {
+    $formTitle = 'Créer un utilisateur';
+  }
+
+  viewTop();
+
+  ?>
+  <h2><?= $formTitle ?></h2>
+  <?php
 
   // Print raw return of getMembres function
   viewMembreForm($membre, $errors);
 
 
-  if (isset($_REQUEST['id_membre']) && $_REQUEST['id_membre'] != '') {
+  if (isset($_REQUEST['id_membre']) && $_REQUEST['id_membre'] != '' && isUserAdmin()) {
   ?>
     <a
       class="btn btn-danger"
@@ -57,4 +68,4 @@
   <?php
   }
 
-  include './templates/bottom.php';
+  viewBottom();

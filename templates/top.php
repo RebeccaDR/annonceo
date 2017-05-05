@@ -1,9 +1,5 @@
 <?php
-	require_once('./templates/security.php');
-	require_once('./model/security.php');
-	if (!isset($_SESSION)) {
-		session_start();
-	}
+	function viewTop () {
  ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,13 +13,15 @@
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="./styles/index.css">
+		<link href="https://fonts.googleapis.com/css?family=Muli:400,600,700" rel="stylesheet">
 	</head>
 		<body>
 		<nav class="navbar navbar-default">
-			<div class="container">
-				<a class="navbar-brand" href="index.php">Annonceo</a>
+			<div class="container navbar-container">
+				<a class="navbar-brand" href="index.php">ANN<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>NCEO</a>
 				<ul class="nav navbar-nav navbar-left">
-					<li><a href="">Consulter les annonces</a></li>
+					<li><a href="annonces.php">Consulter les annonces</a></li>
+					<li><a href="annonce.php">Créer une annonce</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php
@@ -50,8 +48,8 @@
           	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon espace <span class="caret"></span></a>
           	<ul class="dropdown-menu">
 							<li><a href="profil.php?id=<?= $user['id_membre']?>">Mon profil</a></li>
-							<li><a href="#">Mes annonces</a></li>
-							<li><a href="#">Mes avis</a></li>
+							<li><a href="annonces.php?id=<?= $user['id_membre']?>">Mes annonces</a></li>
+							<li><a href="notes.php?id=<?= $user['id_membre']?>">Mes avis</a></li>
 	            <li role="separator" class="divider"></li>
 							<li><a class="red-text" href="./logout.php">Déconnexion</a></li>
           	</ul>
@@ -79,8 +77,6 @@
 		?>
 
 		<div class="container">
-
-			<?php
-			// print_r($_SESSION);
-
-			?>
+<?php
+	}
+?>

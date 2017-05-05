@@ -1,12 +1,11 @@
 <?php
 
-require './model/index.php'; // calls $pdo + $options
-require './templates/index.php';
+include ('./util/init.php');
 
-include './templates/top.php';
-
+viewTop();
 
 
-include './templates/bottom.php';
+
+viewBottom();
 
  ?>

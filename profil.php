@@ -1,25 +1,22 @@
 <?php
 
-  require './model/index.php';
-  require './templates/index.php';
+  include ('./util/init.php');
 
-  include './templates/top.php';
+  viewTop();
 
-  $currentUser = getCurrentUser();
-
-  $user = getMembre($_REQUEST['id']);
+  $membre = getMembre($_REQUEST['id']);
 
   if ($currentUser['id_membre'] == $_REQUEST['id']) {
     $titre = 'Mon profil';
   } else {
 
-    $titre = 'Profil de ' . $user['pseudo'];
+    $titre = 'Profil de ' . $membre['pseudo'];
   }
 
 
-  if (empty($user)) {
+  if (empty($membre)) {
     echo '<h2>Utilisateur inconnu</h2>';
-    include './templates/bottom.php';
+    viewBottom();
     die();
   }
   ?>
@@ -35,7 +32,7 @@
   }
 
 
-  viewMembreProfil($user);
+  viewMembreProfil($membre);
 
   if ($currentUser['id_membre'] == $_REQUEST['id']) {
     ?>
@@ -55,7 +52,7 @@
     viewFormNote($note);
   }
 
-  include './templates/bottom.php';
+  viewBottom();
 
 
  ?>

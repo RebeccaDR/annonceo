@@ -1,9 +1,6 @@
 <?php
 
-session_start();
-
-include './model/index.php';
-require './templates/index.php';
+include ('./util/init.php');
 
 
 $user = getMembreByLogin($_REQUEST['pseudo'], $_REQUEST['mdp']);
@@ -19,9 +16,9 @@ if (!empty($user)) {
   $errors = ['login'=> 'Utilisateur inconnu ou mot de passe erroné.'];
 }
 
-include './templates/top.php';
+viewTop();
 
-include './templates/bottom.php';
+viewBottom();
 
 ?>
 <script type="text/javascript">
