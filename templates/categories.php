@@ -1,12 +1,14 @@
 <?php
 
-function viewSelectCategorie ($categories) {
+function viewSelectCategorie ($categories, $selectedCategorie = '') {
   ?>
   <select name="categorie_id" class="form-control">
     <?php
 			foreach ($categories as $categorie):
 		?>
-    <option value="<?= $categorie['id_categorie']?>" >
+    <option value="<?= $categorie['id_categorie']?>"
+      <?= $selectedCategorie == $categorie['id_categorie'] ? 'selected' : '' ?>
+    >
       <?= $categorie['titre']?>
       (<?= $categorie['motscles']?>...)
     </option>

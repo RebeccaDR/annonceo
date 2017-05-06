@@ -31,6 +31,7 @@ function viewLoginForm ($errors) {
             </div>
           </div>
           <div class="modal-footer">
+            <p>Pas de compte ? <a href="#" data-toggle="modal" data-target="#signupModal">Inscrivez-vous.</a>
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
             <button type="submit" class="btn btn-primary btn-security">Se connecter</button>
           </div>

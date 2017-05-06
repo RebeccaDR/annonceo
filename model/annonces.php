@@ -15,7 +15,7 @@
       $query .= 'WHERE a.titre LIKE "%' . $search . '%" OR a.description_courte LIKE "%' . $search . '%" OR a.description_longue LIKE "%' . $search . '%"';
     }
 
-    $query.= ' ORDER BY id_annonce';
+    $query.= ' ORDER BY date_enregistrement DESC';
 
     $stmt = $pdo->query($query);
 
@@ -32,7 +32,7 @@
               LEFT JOIN photo ON a.photo_id = photo.id_photo
               LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie
               WHERE a.membre_id = ' . $membre_id . '
-              ORDER BY id_annonce';
+              ORDER BY date_enregistrement DESC';
     $stmt = $pdo->query($query);
 
     return $stmt->fetchAll();
@@ -42,12 +42,13 @@
     global $pdo;
 
     $query = 'SELECT
-      a.id_annonce, a.titre AS titre_annonce, a.description_courte, a.description_longue, a.prix, a.pays, a.ville, a.adresse, a.cp, membre.pseudo, a.photo_id, a.membre_id, photo.*, categorie.titre AS titre_categorie, a.date_enregistrement
+      a.id_annonce, a.titre AS titre_annonce, a.description_courte, a.description_longue, a.prix, a.pays, a.ville, a.adresse, a.cp, membre.pseudo, a.photo_id, a.membre_id, photo.*, categorie.id_categorie, categorie.titre AS titre_categorie, a.date_enregistrement, COUNT(id_commentaire) AS nb_commentaires
       FROM annonce a
       LEFT JOIN membre ON a.membre_id = membre.id_membre
       LEFT JOIN photo ON a.photo_id = photo.id_photo
       LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie
-      WHERE a.id_annonce = ' . $idAnnonce;
+      LEFT JOIN commentaire ON a.id_annonce = commentaire.annonce_id
+      WHERE a.id_annonce = ' . $idAnnonce . ' GROUP BY a.id_annonce;';
     $stmt = $pdo->query($query);
 
     return $stmt->fetch();
@@ -97,7 +98,7 @@
       $stmt->bindParam(':ville', $form['ville'], PDO::PARAM_STR);
       $stmt->bindParam(':adresse', $form['adresse'], PDO::PARAM_STR);
       $stmt->bindParam(':cp', $form['cp'], PDO::PARAM_INT);
-      $stmt->bindParam(':categorie_id', $form['id_categorie'], PDO::PARAM_INT);
+      $stmt->bindParam(':categorie_id', $form['categorie_id'], PDO::PARAM_INT);
 
       $stmt->execute();
   }

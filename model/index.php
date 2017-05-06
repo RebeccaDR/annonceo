@@ -15,3 +15,4 @@ require('./model/annonces.php');
 require('./model/security.php');
 require('./model/commentaires.php');
 require('./model/notes.php');
+require('./model/statistiques.php');

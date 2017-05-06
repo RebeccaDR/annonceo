@@ -2,18 +2,15 @@
 
 include ('./util/init.php');
 
+if(isset($_REQUEST['pseudo']) && isset($_REQUEST['mdp'])) {
+  $user = getMembreByLogin($_REQUEST['pseudo'], $_REQUEST['mdp']);
 
-$user = getMembreByLogin($_REQUEST['pseudo'], $_REQUEST['mdp']);
-
-if (!empty($user)) {
-  setCurrentUser($user);
-  // echo '<pre>';
-  // print_r($user);
-  // print_r($_SESSION);
-  // echo '</pre>';
-  header('Location: index.php');
-} else {
-  $errors = ['login'=> 'Utilisateur inconnu ou mot de passe erroné.'];
+  if (!empty($user)) {
+    setCurrentUser($user);
+    header('Location: index.php');
+  } else {
+    $errors = ['login'=> 'Utilisateur inconnu ou mot de passe erroné.'];
+  }
 }
 
 viewTop();

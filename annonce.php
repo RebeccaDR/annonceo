@@ -36,7 +36,6 @@
       $annonce = getAnnonce($_REQUEST['id_annonce']);
       $auteur = getMembre($annonce['membre_id']);
       $photo = getPhoto($annonce['photo_id']);
-
       if (isUserAdmin() && isset($_REQUEST['edit'])) {
         $isForm = true;
       }
@@ -61,7 +60,7 @@
   } else {
     viewAnnonce($annonce, $categories, $auteur, $photo);
 
-    echo '<h3>Commentaires et questions</h3>';
+    echo '<h3>Commentaires et questions <span class="badge" style="background-color: #FF685A;">' . $annonce['nb_commentaires'] . '</span></h3>';
     // Commentaires déjà postés sur l'annonce
     $commentaires = getCommentairesByAnnonce($annonce['id_annonce']);
     viewCommentaires($commentaires);

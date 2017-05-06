@@ -73,7 +73,7 @@ function viewFormCommentaire ($commentaire) {
       ?>
       <textarea class="form-control" type="text" name="commentaire" placeholder="Ecrire un commentaire"><?= isset($commentaire['commentaire']) ? $commentaire['commentaire'] : '' ?></textarea>
     </div>
-    <input class="btn btn-primary" type="submit" value="<?= $idCommentaireExists ? 'Mettre à jour' : 'Envoyer' ?>"/>
+    <input class="btn btn-primary btn-creation" type="submit" value="<?= $idCommentaireExists ? 'Mettre à jour' : 'Envoyer' ?>"/>
   </form>
   <?php
 }

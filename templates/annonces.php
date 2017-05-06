@@ -103,7 +103,12 @@
           <div class="form-group">
             <label class="control-label">Categorie</label>
             <?php
-              viewSelectCategorie($categories);
+            if (isset($annonce['id_categorie'])) {
+              $categorie = $annonce['id_categorie'];
+            } else {
+              $categorie = '';
+            }
+              viewSelectCategorie($categories, $categorie);
              ?>
           </div>
           <div class="form-group">
