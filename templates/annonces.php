@@ -9,17 +9,14 @@
         <?php
         if (isUserAdmin()) :
         ?>
-        <th>id annonce</th>
+        <th>id</th>
         <?php
         endif;
         ?>
-        <th>titre</th>
-        <th>description courte</th>
+        <th>titre / categorie / description</th>
         <th>prix</th>
-        <th>adresse</th>
-        <th>auteur</th>
+        <th>auteur / adresse</th>
         <th>photo(s)</th>
-        <th>catégorie</th>
         <th>date</th>
         <?php
         if (isUserAdmin()) :
@@ -40,24 +37,26 @@
         <?php
         endif;
         ?>
-        <td><a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>"><?= $annonce['titre_annonce']?></a></td>
-        <td><?= $annonce['description_courte']?></td>
-        <td><?= $annonce['prix']?></td>
         <td>
-        <?= $annonce['adresse']?><br/>
-        <?= $annonce['cp']?> - <?= $annonce['ville']?><br/>
-        <?= $annonce['pays']?>
+          <a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>"><?= $annonce['titre_annonce']?></a><br/>
+          <i><?= $annonce['titre_categorie']?></i><br/>
+          <?= $annonce['description_courte']?>
         </td>
-        <td><a href="profil.php?id=<?= $annonce['membre_id'] ?>"><?= $annonce['pseudo']?></a></td>
+        <td><?= $annonce['prix']?> €</td>
+        <td>
+          <a href="profil.php?id=<?= $annonce['membre_id'] ?>"><?= $annonce['pseudo']?></a><br/>
+          <?= $annonce['adresse']?><br/>
+          <?= $annonce['cp']?> - <?= $annonce['ville']?><br/>
+          <?= $annonce['pays']?>
+        </td>
         <td>
         <?php if (isset($annonce['photo1'])) : ?>
           <div class="thumbnail">
-            <img src="uploads/<?= $annonce['photo1'] ?>">
+            <img src="uploads/<?= $annonce['photo1'] ?>" style="max-width:180px;">
             <a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>">Voir les autres photos</a>
           </div>
         <?php endif; ?>
         </td>
-        <td><?= $annonce['titre_categorie']?></td>
         <td><?= $annonce['date_enregistrement']?></td>
         <?php
          if (isUserAdmin()) :
@@ -160,6 +159,10 @@
            </div>
            <hr/>
           <?php
+          else:
+          ?>
+          <input type="hidden" name="membre_id" value="<?= $membre['id_membre'] ?>">
+          <?php
           endif;
           ?>
         </div>
@@ -201,56 +204,57 @@
     <?php
   }
 
- function viewAnnonce ($annonce, $categories, $membre, $photos) {
-   ?>
-   <div class="row">
-     <div class="col-md-8 panel panel-default">
-       <h2><?= $annonce['titre_annonce'] ?></h2>
-       <p>Catégorie : <?= $annonce['titre_categorie'] ?></p>
-       <div class="thumbnail">
-         <img src="uploads/<?= $photos['photo1'] ?>" />
-       </div>
-       <div class="row">
-           <?php
-           foreach ($photos as $key => $photo):
-           if ($key != 'id_photo' && $key != 'photo1'):
-             if ($photo != ''):
-             ?>
-             <div class="thumbnail col-xs-6 col-md-2">
-               <img src="uploads/<?= $photo ?>">
-             </div>
-             <?php
-             endif;
-           endif;
-           endforeach;
-           ?>
-         </div>
-         <p class="caption"><?=$annonce['description_longue']?></p>
-       </div>
-       <div class="col-md-3 panel panel-default" style="margin-top: 20px;">
-         <h3>Infos</h3>
-         <div class="caption">
-           <p>Publié par <a href="profil.php?id=<?= $annonce['membre_id'] ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= $membre['pseudo']?></a></p>
-           <p>Le <?= $annonce['date_enregistrement'] ?></p>
-           <a class="btn btn-default btn-creation btn-telephone">Afficher le téléphone</a>
-           <p style="display: none;"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> <?= $membre['telephone']?></p>
-         </div>
-         <div class="map" style="padding: 20px 0px 20px 0px;">
-           <iframe
-           width="100%"
-           height="300"
-           frameborder="0" style="border:0"
-           src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDrsV8BKulcz_R9pBgEEcHmZhW9l25iIsE&amp;q=<?= $annonce['adresse']?>+<?= $annonce['cp']?>+<?= $annonce['ville']?>+<?= $annonce['pays']?>" allowfullscreen>
-         </iframe>
+  function viewAnnonce ($annonce, $categories, $membre, $photos) {
+    ?>
+    <div class="row">
+      <div class="col-md-8 panel panel-default">
+        <h2><?= $annonce['titre_annonce'] ?></h2>
+        <p>Catégorie : <?= $annonce['titre_categorie'] ?></p>
+
+        <div class="row">
+          <div class="col-md-10 col-xs-12">
+            <div class="thumbnail annonce-slideshow-large">
+              <img src="uploads/<?= $photos['photo1'] ?>" />
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-12">
+            <?php
+              foreach ($photos as $key => $photo):
+              if ($key != 'id_photo' && $key != 'photo1' && $photo != ''):
+            ?>
+              <a class="annonce-slideshow-mini thumbnail col-xs-3 col-md-12">
+                <img src="uploads/<?= $photo ?>">
+              </a>
+            <?php
+              endif;
+              endforeach;
+            ?>
+          </div>
+        </div>
+        <p class="caption"><?=$annonce['description_longue']?></p>
+      </div>
+      <div class="col-md-3 panel panel-default" style="margin-top: 20px;">
+        <h3>Infos</h3>
+        <div class="caption">
+          <p>Publié par <a href="profil.php?id=<?= $annonce['membre_id'] ?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?= $membre['pseudo']?></a></p>
+          <p>Le <?= $annonce['date_enregistrement'] ?></p>
+          <a class="btn btn-default btn-creation btn-telephone">Afficher le téléphone</a>
+          <p style="display: none;"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span> <?= $membre['telephone']?></p>
+        </div>
+        <div class="map" style="padding: 20px 0px 20px 0px;">
+          <iframe
+          width="100%"
+          height="300"
+          frameborder="0" style="border:0"
+          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDrsV8BKulcz_R9pBgEEcHmZhW9l25iIsE&amp;q=<?= $annonce['adresse']?>+<?= $annonce['cp']?>+<?= $annonce['ville']?>+<?= $annonce['pays']?>" allowfullscreen>
+          </iframe>
         </div>
       </div>
-     </div>
-     <?php
-     if (isUserAdmin()) {
-       ?>
-       <a class="btn btn-primary" href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>&amp;edit=true">Modifier cette annonce</a>
-       <?php
-     }
-     ?>
-   <?php
- }
+    </div>
+    <?php
+    if (isUserAdmin()) {
+      ?>
+        <a class="btn btn-primary" href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>&amp;edit=true">Modifier cette annonce</a>
+      <?php
+    }
+  }

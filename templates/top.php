@@ -20,7 +20,7 @@
 			<div class="container navbar-container">
 				<a class="navbar-brand" href="index.php">ANN<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>NCEO</a>
 				<ul class="nav navbar-nav navbar-left">
-					<li><a href="annonces.php">Consulter les annonces</a></li>
+					<li><a href="annonces.php">Toutes les annonces</a></li>
 					<?php
 						if (isUserConnected()):
 					 ?>
@@ -29,6 +29,14 @@
 						endif;
 					 ?>
 				</ul>
+				<form class="navbar-form navbar-left" action="annonces.php" method="get">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Rechercher des annonces" name="search">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default">Go !</button>
+						</span>
+					</div>
+				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<?php
 					if (isUserAdmin()) :

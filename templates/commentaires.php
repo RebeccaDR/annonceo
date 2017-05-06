@@ -38,19 +38,13 @@ function viewListeCommentaires ($commentaires) {
 
 function viewFormCommentaire ($commentaire) {
   $idCommentaireExists = isset($commentaire['id_commentaire']) && $commentaire['id_commentaire'] != '';
-
-  if ($idCommentaireExists) {
-    $formTitle = 'Modifier un commentaire';
-  } else {
-    $formTitle = 'Ajouter un commentaire';
-  }
-
   ?>
-
-  <h2><?= $formTitle ?></h2>
   <form method="post" action="commentaire.php">
     <input type="hidden" name="action" value="<?= $idCommentaireExists ? 'update' : 'create' ?>">
     <input type="hidden" name="id_commentaire" value="<?= $idCommentaireExists ? $commentaire['id_commentaire'] : '' ?>">
+    <?php
+      if(isUserAdmin() && $idCommentaireExists):
+    ?>
     <div class="form-group">
       <label class="control-label">Auteur</label>
       <input type="hidden" name="membre_id" value="<?= $commentaire['id_membre'] ?>">
@@ -61,12 +55,47 @@ function viewFormCommentaire ($commentaire) {
       <input type="hidden" name="annonce_id" value="<?= $commentaire['id_annonce'] ?>">
       <input class="form-control" type="text" disabled="disabled" value="<?= $commentaire['annonce_id'] . ' - ' . $commentaire['titre'] ?>">
     </div>
+    <?php
+      else:
+    ?>
+      <input type="hidden" name="membre_id" value="<?= $commentaire['id_membre'] ?>">
+      <input type="hidden" name="annonce_id" value="<?= $commentaire['id_annonce'] ?>">
+    <?php
+      endif;
+    ?>
     <div class="form-group">
+      <?php
+        if(isUserAdmin() && $idCommentaireExists):
+      ?>
       <label class="control-label">Commentaire</label>
+      <?php
+        endif;
+      ?>
       <textarea class="form-control" type="text" name="commentaire" placeholder="Ecrire un commentaire"><?= isset($commentaire['commentaire']) ? $commentaire['commentaire'] : '' ?></textarea>
     </div>
-    <input class="btn btn-primary" type="submit" value="<?= $idCommentaireExists ? 'Mettre à jour' : 'Envoyer mon commentaire' ?>"/>
+    <input class="btn btn-primary" type="submit" value="<?= $idCommentaireExists ? 'Mettre à jour' : 'Envoyer' ?>"/>
   </form>
+  <?php
+}
+
+function viewCommentaires ($commentaires) {
+  ?>
+  <div class="row">
+  <?php
+  foreach ($commentaires as $commentaire):
+  ?>
+  <div class="col-md-12">
+    <div class="panel panel-default" style="padding: 10px; margin-bottom: 0;">
+      <p>
+        Commentaire envoyé par <a href="profil.php?id=<?=$commentaire['id_membre']?>"><?= $commentaire['pseudo']?></a> le <b><?= $commentaire['date_enregistrement']?></b>
+      </p>
+      <p><?= $commentaire['commentaire']?></p>
+    </div>
+  </div>
+  <?php
+  endforeach;
+  ?>
+  </div>
   <?php
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-  function getAnnonces () {
+  function getAnnonces ($search = '') {
     global $pdo;
 
     $query = 'SELECT
@@ -8,8 +8,15 @@
               FROM annonce a
               LEFT JOIN membre ON a.membre_id = membre.id_membre
               LEFT JOIN photo ON a.photo_id = photo.id_photo
-              LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie
-              ORDER BY id_annonce';
+              LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie ';
+
+    if ($search != '') {
+      $search = addslashes($search);
+      $query .= 'WHERE a.titre LIKE "%' . $search . '%" OR a.description_courte LIKE "%' . $search . '%" OR a.description_longue LIKE "%' . $search . '%"';
+    }
+
+    $query.= ' ORDER BY id_annonce';
+
     $stmt = $pdo->query($query);
 
     return $stmt->fetchAll();

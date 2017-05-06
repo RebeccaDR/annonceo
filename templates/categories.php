@@ -2,7 +2,7 @@
 
 function viewSelectCategorie ($categories) {
   ?>
-  <select name="id_categorie" class="form-control">
+  <select name="categorie_id" class="form-control">
     <?php
 			foreach ($categories as $categorie):
 		?>

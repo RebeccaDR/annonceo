@@ -14,6 +14,20 @@ function getCommentaires () {
   return $stmt->fetchAll();
 }
 
+function getCommentairesByAnnonce ($idAnnonce) {
+  global $pdo;
+
+  $query = 'SELECT
+            c.*, membre.id_membre, membre.pseudo
+            FROM commentaire c
+            LEFT JOIN membre ON c.membre_id = membre.id_membre
+            WHERE c.annonce_id = ' . $idAnnonce . '
+            ORDER BY date_enregistrement';
+  $stmt = $pdo->query($query);
+
+  return $stmt->fetchAll();
+}
+
 function getCommentaire ($idCommentaire) {
   global $pdo;
 

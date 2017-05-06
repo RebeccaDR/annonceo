@@ -25,16 +25,30 @@
     $annonces = getAnnoncesByUser($_REQUEST['id']);
   } else {
     $titre = 'Annonces';
-    $annonces = getAnnonces();
+    if (! isset($_REQUEST['search'])) {
+      $annonces = getAnnonces();
+    } else {
+      $annonces = getAnnonces($_REQUEST['search']);
+    }
   }
 
+  echo '<h2>' . $titre . '</h2>';
 
-  viewListeAnnonces($annonces);
+  if (isset($_REQUEST['search'])) {
+    echo '<p>Recherche d\'annonces pour "' . $_REQUEST['search'] . '"';
+  }
 
-  ?>
+  if (count($annonces) != 0) {
+    viewListeAnnonces($annonces);
+  } else {
+    echo '<div class="alert alert-danger" role="alert">Pas d\'annonce trouvée pour cette recherche</div>';
+  }
 
-  <a class="btn btn-default btn-creation" href="./annonce.php">Créer une nouvelle annonce</a>
-  <?php
+  if (isUserConnected()) {
+    ?>
+    <a class="btn btn-default btn-creation" href="./annonce.php">Créer une nouvelle annonce</a>
+    <?php
+  }
 
   viewBottom();
 

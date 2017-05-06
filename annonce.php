@@ -15,7 +15,10 @@
       header('Location: annonces.php?update_success=true');
     }
     if ($_REQUEST['action'] == 'create' && count($errors) == 0) {
-      createAnnonce($_REQUEST);
+      $photoId = createPhoto($_REQUEST);
+      $form = $_REQUEST;
+      $form['photo_id'] = $photoId;
+      createAnnonce($form);
       header('Location: annonces.php?create_success=true');
     }
     if ($_REQUEST['action'] == 'delete') {
@@ -40,6 +43,7 @@
     } else {
       redirectUnauthorizedUsers('logged_user_only');
 
+      $isForm = true;
       $annonce = [];
       $auteur = getMembre($currentUser['id_membre']);
       $photo = ['photo1' => '', 'photo2' => '', 'photo3' => '', 'photo4' => '', 'photo5' => ''];
@@ -48,10 +52,29 @@
 
   viewTop();
 
+  if (isset($_REQUEST['comment_success'])) {
+    echo '<div class="alert alert-success" role="alert">Commentaire envoyé avec succès</div>';
+  }
+
   if ($isForm == true) {
     viewFormAnnonce($annonce, $categories, $auteur, $photo, $errors);
   } else {
     viewAnnonce($annonce, $categories, $auteur, $photo);
+
+    echo '<h3>Commentaires et questions</h3>';
+    // Commentaires déjà postés sur l'annonce
+    $commentaires = getCommentairesByAnnonce($annonce['id_annonce']);
+    viewCommentaires($commentaires);
+
+    echo '<h4>Envoyer un commentaire ou Poser une question</h4>';
+    // Préremplissage du formulaire pour ajouter un commentaire sur l'annonce
+    $commentaire = [
+      'id_membre'=> $currentUser['id_membre'],
+      'pseudo' => $currentUser['pseudo'],
+      'id_annonce' => $annonce['id_annonce'],
+      'titre' => $annonce['titre_annonce']
+    ];
+    viewFormCommentaire($commentaire);
   }
 
   viewBottom();
