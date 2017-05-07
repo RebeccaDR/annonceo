@@ -3,7 +3,7 @@
 include ('./util/init.php');
 
 $categories = getCategories();
-$lastAnnonces = getAnnonces(null, null, null, null, 4);
+$lastAnnonces = getAnnonces(null, null, 'date_enregistrement', 'DESC', 4);
 
 viewTop();
 
