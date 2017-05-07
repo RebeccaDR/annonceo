@@ -3,7 +3,7 @@
 include ('./util/init.php');
 
 $categories = getCategories();
-$lastAnnonces = getAnnonces(null, null, 4);
+$lastAnnonces = getAnnonces(null, null, null, null, 4);
 
 viewTop();
 
@@ -24,7 +24,7 @@ if (isset($_REQUEST['create_success'])) {
   }
 
   viewAnnoncesSmall($lastAnnonces);
-  
+
   ?>
 </div>
 

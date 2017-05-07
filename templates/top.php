@@ -16,6 +16,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Muli:400,600,700" rel="stylesheet">
 	</head>
 		<body>
+		<div class="main">
 		<nav class="navbar navbar-default">
 			<div class="container navbar-container">
 				<a class="navbar-brand" href="index.php">ANN<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>NCEO</a>

@@ -1,6 +1,6 @@
 <?php
 
-  function getAnnonces ($search = '', $categorie = '', $limit = '') {
+  function getAnnonces ($search = '', $categorie = '', $tri = 'date_enregistrement', $sensTri = 'DESC', $limit = '') {
     global $pdo;
 
     $query = 'SELECT
@@ -25,7 +25,7 @@
       $query .= 'a.categorie_id = ' . $categorie;
     }
 
-    $query.= ' ORDER BY date_enregistrement DESC';
+    $query.= ' ORDER BY ' . addslashes($tri) . ' ' . addslashes($sensTri);
 
     if ($limit != '') {
       $query .= ' LIMIT ' . $limit;
