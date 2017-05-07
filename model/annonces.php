@@ -1,6 +1,6 @@
 <?php
 
-  function getAnnonces ($search = '') {
+  function getAnnonces ($search = '', $categorie = '', $limit = '') {
     global $pdo;
 
     $query = 'SELECT
@@ -10,12 +10,26 @@
               LEFT JOIN photo ON a.photo_id = photo.id_photo
               LEFT JOIN categorie ON a.categorie_id = categorie.id_categorie ';
 
+    if ($search != '' || $categorie != '') {
+      $query .= 'WHERE ';
+    }
     if ($search != '') {
       $search = addslashes($search);
-      $query .= 'WHERE a.titre LIKE "%' . $search . '%" OR a.description_courte LIKE "%' . $search . '%" OR a.description_longue LIKE "%' . $search . '%"';
+      $query .= '(a.titre LIKE "%' . $search . '%" OR a.description_courte LIKE "%' . $search . '%" OR a.description_longue LIKE "%' . $search . '%")';
+    }
+    if ($search != '' && $categorie != '') {
+      $query .= 'AND ';
+    }
+    if ($categorie != '') {
+      $categorie = addslashes($categorie);
+      $query .= 'a.categorie_id = ' . $categorie;
     }
 
     $query.= ' ORDER BY date_enregistrement DESC';
+
+    if ($limit != '') {
+      $query .= ' LIMIT ' . $limit;
+    }
 
     $stmt = $pdo->query($query);
 

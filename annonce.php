@@ -65,15 +65,17 @@
     $commentaires = getCommentairesByAnnonce($annonce['id_annonce']);
     viewCommentaires($commentaires);
 
-    echo '<h4>Envoyer un commentaire ou Poser une question</h4>';
-    // Préremplissage du formulaire pour ajouter un commentaire sur l'annonce
-    $commentaire = [
-      'id_membre'=> $currentUser['id_membre'],
-      'pseudo' => $currentUser['pseudo'],
-      'id_annonce' => $annonce['id_annonce'],
-      'titre' => $annonce['titre_annonce']
-    ];
-    viewFormCommentaire($commentaire);
+    if (isUserConnected()) {
+      echo '<h4>Envoyer un commentaire ou Poser une question</h4>';
+      // Préremplissage du formulaire pour ajouter un commentaire sur l'annonce
+      $commentaire = [
+        'id_membre'=> $currentUser['id_membre'],
+        'pseudo' => $currentUser['pseudo'],
+        'id_annonce' => $annonce['id_annonce'],
+        'titre' => $annonce['titre_annonce']
+      ];
+      viewFormCommentaire($commentaire);
+    }
   }
 
   viewBottom();

@@ -2,6 +2,9 @@
 
 include ('./util/init.php');
 
+$categories = getCategories();
+$lastAnnonces = getAnnonces(null, null, 4);
+
 viewTop();
 
 if (isset($_REQUEST['create_success'])) {
@@ -19,6 +22,9 @@ if (isset($_REQUEST['create_success'])) {
     echo '<div class="panel panel-default"><h2 style="color: #1B62B2;">Bienvenue sur Annonceo</h2>';
     echo '<p>Vous souhaitez vendre quelque chose ? Acheter quelque chose ! C\'est ici que ça se passe !</p></div>';
   }
+
+  viewAnnoncesSmall($lastAnnonces);
+  
   ?>
 </div>
 
@@ -33,12 +39,26 @@ if (isset($_REQUEST['create_success'])) {
     </a>
   </div>
   <div class="panel panel-default" style="background-color: #1B62B2; text-align: center;">
-    <a <?= isUserConnected() ? 'href="annonce.php"' : 'href="#" data-toggle="modal" data-target="#loginModal"' ?> style="color: #FFF; font-size: 1.2em;">
+    <a href="annonces.php" style="color: #FFF; font-size: 1.2em;">
       <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Chercher une annonce
     </a>
   </div>
-</div>
 
+  <div class="panel panel-default">
+    <h2 style="color: #FF685A;">Catégories</h2>
+    <ul>
+      <?php
+      foreach ($categories as $categorie) :
+        ?>
+        <li>
+          <a href="annonces.php?categorie=<?= $categorie['id_categorie'] ?>"><?= $categorie['titre'] ?></a>
+        </li>
+      <?php
+    endforeach;
+       ?>
+    </ul>
+  </div>
+</div>
 
 
 <?php

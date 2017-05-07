@@ -25,11 +25,9 @@
     $annonces = getAnnoncesByUser($_REQUEST['id']);
   } else {
     $titre = 'Annonces';
-    if (! isset($_REQUEST['search'])) {
-      $annonces = getAnnonces();
-    } else {
-      $annonces = getAnnonces($_REQUEST['search']);
-    }
+    $categorie = isset($_REQUEST['categorie']) ? $_REQUEST['categorie'] : '';
+    $search = isset($_REQUEST['search']) ? $_REQUEST['search'] : '';
+    $annonces = getAnnonces($search, $categorie);
   }
 
   echo '<h2>' . $titre . '</h2>';

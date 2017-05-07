@@ -19,7 +19,10 @@ function viewListeCommentaires ($commentaires) {
       <td>
         <a href="profil.php?id=<?=$commentaire['id_membre']?>"><?= $commentaire['pseudo']?></a>
       </td>
-      <td><?= $commentaire['id_annonce'] . ' - ' . $commentaire['titre']?></td>
+      <td><?= $commentaire['id_annonce']?> -
+        <a href="annonce.php?id_annonce=<?=$commentaire['id_annonce']?>"> <?=$commentaire['titre']?>
+        </a>
+      </td>
       <td><?= $commentaire['commentaire']?></td>
       <td><?= $commentaire['date_enregistrement']?></td>
       <td>

@@ -263,3 +263,33 @@
       <?php
     }
   }
+
+  function viewAnnoncesSmall ($annonces) {
+    ?>
+    <div class="row">
+      <?php foreach($annonces as $annonce): ?>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <h3><?= $annonce['titre_annonce'] ?></h3>
+            <div class="thumbnail">
+              <img src="uploads/<?= $annonce['photo1'] ?>" style="max-height: 150px;"/>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <p>
+                  <?= $annonce['description_courte'] ?>
+                </p>
+                <p>
+                  <a href="annonce.php?id_annonce=<?= $annonce['id_annonce']?>">Voir plus de détails</a>
+                </p>
+              </div>
+              <div class="col-md-4" style="font-size: 18px;">
+                <?= $annonce['prix'] ?> €
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <?php
+  }
