@@ -27,9 +27,14 @@ if (isset($_REQUEST['create_success'])) {
     <p style="text-align: center;"><strong>ANN<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>NCEO</strong> est une plateforme qui permet de vendre, acheter, échanger, sur toute la France, <strong>gratuitement</strong> et <strong>sans commission</strong>.</p>
   </div>
 
-  <div class="panel panel-default" style="background-color: #FF685A;">
-    <a <?= isUserConnected() ? 'href="annonce.php"' : 'href="#" data-toggle="modal" data-target="#loginModal"' ?>>
+  <div class="panel panel-default" style="background-color: #FF685A; text-align: center;">
+    <a <?= isUserConnected() ? 'href="annonce.php"' : 'href="#" data-toggle="modal" data-target="#loginModal"' ?> style="color: #FFF; font-size: 1.2em;">
       <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Créer une annonce
+    </a>
+  </div>
+  <div class="panel panel-default" style="background-color: #1B62B2; text-align: center;">
+    <a <?= isUserConnected() ? 'href="annonce.php"' : 'href="#" data-toggle="modal" data-target="#loginModal"' ?> style="color: #FFF; font-size: 1.2em;">
+      <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Chercher une annonce
     </a>
   </div>
 </div>
