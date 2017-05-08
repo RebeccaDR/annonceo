@@ -4,9 +4,9 @@
       </div> <!-- end div.container -->
       </div>
       <footer>
-        <a href="mentions-legales.php#cgv">Conditions générales de vente</a> -
-        <a href="mentions-legales.php#mentions-legales">Mentions légales</a> -
-        <a href="mentions-legales.php#contact">Contact</a> -
+        <a href="mentions-legales.php#cgv" class="footer-link">Conditions générales de vente</a> -
+        <a href="mentions-legales.php#mentions-legales" class="footer-link">Mentions légales</a> -
+        <a href="mentions-legales.php#contact" class="footer-link">Contact</a> -
         Copyright 2017 Annonceo tout droits réservés
       </footer>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

@@ -170,6 +170,11 @@ footer {
   text-align: center;
 }
 
-footer a {
+.footer-link {
   color: #FF685A;
+}
+
+.footer-link:hover {
+  color: #FF9788;
+  text-decoration: none;
 }
