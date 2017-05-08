@@ -213,4 +213,36 @@
     return $errors;
   }
 
+  function deleteAnnonce ($idAnnonce) {
+    global $pdo;
+
+    $annonce = getAnnonce($idAnnonce);
+
+    deleteCommentairesByAnnonce($idAnnonce);
+
+    $query = 'DELETE FROM annonce WHERE id_annonce = ' . $idAnnonce;
+
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    deletePhotoByAnnonce($annonce['id_photo']);
+  }
+
+  function deletePhotoByAnnonce ($idPhoto) {
+    global $pdo;
+
+    $query = 'DELETE FROM photo WHERE id_photo = ' . $idPhoto;
+
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+  }
+
+  function deleteCommentairesByAnnonce ($idAnnonce) {
+    global $pdo;
+
+    $query = 'DELETE FROM commentaire WHERE annonce_id = ' . $idAnnonce;
+
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+  }
+
  ?>

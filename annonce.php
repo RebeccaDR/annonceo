@@ -57,6 +57,16 @@
 
   if ($isForm == true) {
     viewFormAnnonce($annonce, $categories, $auteur, $photo, $errors);
+    if (isset($_REQUEST['id_annonce']) && $_REQUEST['id_annonce'] != '') {
+    ?>
+      <a
+        class="btn btn-danger"
+        onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer l'annonce '?');return false;"
+        href="annonce.php?action=delete&amp;id_annonce=<?= $_REQUEST['id_annonce']?>">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Supprimer
+      </a>
+    <?php
+    }
   } else {
     viewAnnonce($annonce, $categories, $auteur, $photo);
 
